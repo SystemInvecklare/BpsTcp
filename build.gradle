@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+ext.group = 'com.github.SystemInvecklare';
+ext.version = '0.1';
+
+group = ext.group
+version = ext.version
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+sourceSets.main.resources.srcDirs = ["src/main/java"]
+sourceSets.test.resources.srcDirs = ["src/test/java"]
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "${group}"
+            artifactId = project.name // Use the project name as the artifactId (optional)
+            version = "${version}"
+
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.github.SystemInvecklare:BytePackingSerialization:1.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
