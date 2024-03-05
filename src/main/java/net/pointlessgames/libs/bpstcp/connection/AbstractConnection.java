@@ -594,8 +594,8 @@ import java.util.function.Consumer;
             if(this == obj) {
                 return true;
             }
-            if(obj instanceof final RequestId other) {
-                return this.uuid.equals(other.uuid);
+            if(obj instanceof RequestId) {
+                return this.uuid.equals(((RequestId) obj).uuid);
             }
             return false;
         }

@@ -4,8 +4,10 @@ plugins {
     id 'maven-publish'
 }
 
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
 ext.group = 'com.github.SystemInvecklare';
-ext.version = '0.1';
+ext.version = '0.2';
 
 group = ext.group
 version = ext.version
@@ -14,6 +16,12 @@ repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
 }
+
+compileJava { // Jitpack seems to use Java 8 when compiling
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 
 sourceSets.main.resources.srcDirs = ["src/main/java"]
 sourceSets.test.resources.srcDirs = ["src/test/java"]
@@ -31,7 +39,7 @@ publishing {
 }
 
 dependencies {
-    implementation 'com.github.SystemInvecklare:BytePackingSerialization:1.5'
+    api 'com.github.SystemInvecklare:BytePackingSerialization:1.5'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

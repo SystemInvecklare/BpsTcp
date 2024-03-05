@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.function.Consumer;
 
 public class ServerToClientConnection<IncomingPacketType, OutgoingPacketType> extends AbstractConnection<IncomingPacketType, OutgoingPacketType> implements IConnection<IncomingPacketType, OutgoingPacketType> {
@@ -16,8 +17,9 @@ public class ServerToClientConnection<IncomingPacketType, OutgoingPacketType> ex
         if(socket == null) {
             throw new IllegalStateException("Not connected");
         }
-        if(socket.getRemoteSocketAddress() instanceof final InetSocketAddress inetSocketAddress) {
-            return inetSocketAddress;
+        SocketAddress socketAddress = socket.getRemoteSocketAddress();
+        if(socketAddress instanceof InetSocketAddress) {
+            return (InetSocketAddress) socketAddress;
         }
         return null;
     }
